@@ -1,0 +1,104 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Simple Note-Taking API",
+      "description": "API for creating, fetching, querying, and updating notes"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/notes": {
+        "post": {
+          "summary": "Create a new note",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "note",
+              "description": "Note to be created",
+              "schema": {
+                "$ref": "#/definitions/Note"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Note created successfully"
+            }
+          }
+        },
+        "get": {
+          "summary": "Query notes by title substring",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "title",
+              "description": "Substring of the note title"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of matching notes"
+            }
+          }
+        }
+      },
+      "/notes/{id}": {
+        "get": {
+          "summary": "Fetch a note by its primary key",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Note ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Note fetched successfully"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update an existing note",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "description": "Note ID"
+            },
+            {
+              "in": "body",
+              "name": "note",
+              "description": "Note to be updated",
+              "schema": {
+                "$ref": "#/definitions/Note"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Note updated successfully"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Note": {
+        "required": ["title", "body"],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
